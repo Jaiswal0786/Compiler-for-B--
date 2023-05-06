@@ -2,6 +2,11 @@
 
 B-- is a simple toy language implemented using Lex and Yacc. It supports basic programming constructs and operations.
 
+## Contributors
+
+- Abhishek Jaiswal
+- Devanshu Dhawan
+
 ## Lexical Analysis (Lex)
 
 The Lex file defines the lexical rules for tokenizing the input source code. It defines various tokens used in the B-- language, including keywords, operators, identifiers, and literals. The tokens recognized by Lex include:
@@ -43,5 +48,18 @@ The B-- language supports the following constructs:
 - Print statements: Prints output to the console.
 - Rem statements: Comments or remarks.
 - Return statements: Returns from a subroutine or function.
+
+
+## How to Run
+
+To run the B-- toy language, follow these steps:
+
+1. Install Lex and Yacc on your system.
+2. Clone the B-- repository: `git clone https://github.com/username/b--`.
+3. Navigate to the project directory: `cd b--`.
+4. Build the Lex and Yacc files: `lex b--_lex.l && yacc -d b--_yacc.y`.
+5. Compile the generated C files: `gcc lex.yy.c y.tab.c -o b--`.
+6. Run the B-- toy language: `./b-- input.bmm`.
+
 
 Please note that the code for the B-- language implementation is not included in this README file. This file serves as a reference for understanding the language's features and syntax.
