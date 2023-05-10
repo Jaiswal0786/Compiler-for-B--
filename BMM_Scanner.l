@@ -10,8 +10,8 @@
 " "+              /* skip whitespace */
 \n                  { return NEWLINE;}
 \t                  { return TAB;}                  
-[0-9]+\.[0-9]+      { fprintf(yyout,"FLOAT: %s\n", yytext); yylval.fvalue = atof(yytext); return FLOAT; }
-[0-9]+              { fprintf(yyout,"INT: %s\n", yytext); yylval.ivalue = atoi(yytext); return INT; }
+-?[0-9]+\.[0-9]+    { fprintf(yyout,"FLOAT: %s\n", yytext); yylval.fvalue = atof(yytext); return FLOAT; }
+-?[0-9]+            { fprintf(yyout,"INT: %s\n", yytext); yylval.ivalue = atoi(yytext); return INT; }
 \"([^\\\n])*\"      { fprintf(yyout,"STRING: %s\n", yytext); yylval.svalue = strdup(yytext+1); yylval.svalue[strlen(yytext)-2] = '\0'; return STRING; }
 IF                  { fprintf(yyout,"IF\n"); return IF; }
 THEN                { fprintf(yyout,"THEN\n"); return THEN; }

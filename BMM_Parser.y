@@ -17,7 +17,7 @@ int yywrap()
 int prev=-1;
 int main()
 {
-     yyin=fopen("IncorrectSample.bmm","r"); yyout=fopen("output.txt","w");
+     yyin=fopen("input.txt","r"); yyout=fopen("output.txt","w");
      yyparse();
 
      return 0;
@@ -85,15 +85,18 @@ value: INT
      | STRING
      ;
 
-def_statement: DEF FN L_BRACE IDENTIFIER R_BRACE EQ expression
-             | DEF FN EQ expression
-             | DEF FN L_BRACE R_BRACE EQ expression
+def_statement: DEF func_x EQ expression
              ;
+
+func_x: FN L_BRACE IDENTIFIER R_BRACE 
+      | FN L_BRACE R_BRACE
+      | FN 
 
 expression: INT
           | FLOAT
           | STRING
           | IDENTIFIER_Y 
+          | func_x
           | expression PLUS expression
           | expression MINUS expression
           | expression MUL expression
@@ -114,8 +117,8 @@ dim_declaration: IDENTIFIER L_BRACE INT R_BRACE
                 ;
 
 for_statement: FOR IDENTIFIER EQ expression TO expression
-                 | FOR IDENTIFIER EQ expression TO expression STEP expression
-                 ;
+               | FOR IDENTIFIER EQ expression TO expression STEP expression
+               ;
 
 gosub_statement: GOSUB INT
                ;
@@ -134,7 +137,7 @@ condition: expression LT expression
          | expression NEQ expression
          ;
 
-let_statement: LET IDENTIFIER_X EQ expression;
+let_statement: LET IDENTIFIER_Y EQ expression;
 
 input_statement: INPUT input_list
                ;
@@ -147,7 +150,7 @@ input_var: IDENTIFIER_X
          | IDENTIFIER_X L_BRACE INT R_BRACE
          | IDENTIFIER_X L_BRACE IDENTIFIER_X R_BRACE
          ;
-IDENTIFIER_Y: IDENTIFIER_X L_BRACE IDENTIFIER_X R_BRACE
+IDENTIFIER_Y: IDENTIFIER_X L_BRACE expression R_BRACE
             | IDENTIFIER_X L_BRACE INT R_BRACE
             | IDENTIFIER_X
 IDENTIFIER_X: IDENTIFIER|IDENTIFIER DOLLAR | IDENTIFIER MODULO | IDENTIFIER EXCLAMATION | IDENTIFIER HASH
@@ -166,6 +169,7 @@ print_item: INT
           | STRING
           | IDENTIFIER
           | L_BRACE expression R_BRACE 
+          | func_x
           ;
 next_statement: NEXT words| NEXT
 rem_statement: REM words
